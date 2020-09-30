@@ -1,0 +1,18 @@
+{
+  "type" : "object",
+  "javaType"  : "com.neel.kafkacourse.types.Employees",
+  "properties"  : {
+    "empid" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "department" : {
+      "type" : "string"
+    },
+    "salary" : {
+      "type" : "integer"
+    }
+  }
+}

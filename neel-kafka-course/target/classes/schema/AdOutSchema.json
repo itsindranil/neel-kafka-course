@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "javaType": "com.neel.kafkacourse.types.AdOutSchema",
+  "properties": {
+    "InventoryID": {
+      "type": "string"
+    },
+    "NewsType": {
+      "type": "string"
+    },
+    "custName": {
+      "type": "string"
+    },
+    "custAddress": {
+      "type": "string"
+    },
+    "reg_name": {
+      "type": "string"
+    },
+    "subreg_name": {
+      "type": "string"
+    },
+    "txnID": {
+      "type": "string"
+    },
+    "custID": {
+      "type": "string"
+    },
+    "regID": {
+      "type": "string"
+    },
+    "txn_val": {
+      "type": "double"
+    }
+  }
+}

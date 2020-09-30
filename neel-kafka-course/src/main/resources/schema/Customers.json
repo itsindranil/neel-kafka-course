@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "javaType": "com.neel.kafkacourse.types.Customers",
+  "properties": {
+    "custID": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    }
+  }
+}

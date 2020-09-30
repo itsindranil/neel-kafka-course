@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "javaType": "com.neel.kafkacourse.types.AdOut",
+  "properties": {
+    "InventoryID": {
+      "type": "string"
+    },
+    "NewsType": {
+      "type": "string"
+    }
+  }
+}

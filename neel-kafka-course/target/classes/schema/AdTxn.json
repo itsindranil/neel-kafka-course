@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "javaType": "com.neel.kafkacourse.types.AdTxn",
+  "properties": {
+    "txnID": {
+      "type": "string"
+    },
+    "InventoryID": {
+      "type": "string"
+    },
+    "custID": {
+      "type": "string"
+    },
+    "regID": {
+      "type": "string"
+    },
+    "txn_val": {
+      "type": "double"
+    }
+  }
+}

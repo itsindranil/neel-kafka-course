@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "javaType": "com.neel.kafkacourse.types.Regions",
+  "properties": {
+    "regID": {
+      "type": "string"
+    },
+    "reg_name": {
+      "type": "string"
+    },
+    "subreg_name": {
+      "type": "string"
+    }
+  }
+}
