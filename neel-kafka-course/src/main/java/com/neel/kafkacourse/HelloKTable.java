@@ -2,7 +2,12 @@ package com.neel.kafkacourse;
 
 
 import com.neel.kafkacourse.serde.AppSerdes;
-import com.neel.kafkacourse.types.Employees;
+import com.neel.kafkacourse.serde.JsonSerializer;
+import com.neel.kafkacourse.types.Regions;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.KTable;
@@ -26,13 +31,25 @@ public class HelloKTable {
         properties.setProperty(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, AppConfigs.bootstrapServers);
         //properties.setProperty(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, AppSerdes.String().getClass().getName());
         //properties.setProperty(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, AppSerdes.Employees().getClass().getName());
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, AppConfigs.bootstrapServers);
+        properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
+
+
+        KafkaProducer<String, Regions> producer = new KafkaProducer<String, Regions>(properties);
 
         StreamsBuilder builder = new StreamsBuilder();
-        KTable<String, Employees> KT0 = builder.table(AppConfigs.topicName,
-                Materialized.<String, Employees, KeyValueStore<Bytes, byte[]>>as(AppConfigs.stateStoreName)
+
+        KTable<String, Regions> KT0 = builder.table("topic-region-raw",
+                Materialized.<String, Regions, KeyValueStore<Bytes, byte[]>>as("store-regions-raw")
                         .withKeySerde(AppSerdes.String())
-                        .withValueSerde(AppSerdes.Employees()));
-        //KT0.toStream().print(Printed.<String, Employees>toSysOut().withLabel("KT0"));
+                        .withValueSerde(AppSerdes.Regions())
+        );
+
+        //KTable<String, Regions> KT0 = builder.table("topic-region-in", Consumed.with(AppSerdes.String(), AppSerdes.Regions()));
+        //KT0.toStream().print(Printed.<String, Regions>toSysOut().withLabel("KT0"));
+        //KT0.toStream().to("topic-region-out");
+        //create a producer record with Keys
 
 
 /*
@@ -62,14 +79,20 @@ public class HelloKTable {
         //queryServer.start();
 
         //Get the key value store
-        ReadOnlyKeyValueStore<String, Employees> kvStore = streams.store(AppConfigs.stateStoreName, QueryableStoreTypes.keyValueStore());
+        ReadOnlyKeyValueStore<String, Regions> kvStore = streams.store("store-regions-raw", QueryableStoreTypes.keyValueStore());
 
         //Get all values for all keys
-        KeyValueIterator<String, Employees> range = kvStore.all();
+        KeyValueIterator<String, Regions> range = kvStore.all();
         while (range.hasNext()) {
-            KeyValue<String, Employees> next = range.next();
+            KeyValue<String, Regions> next = range.next();
+            ProducerRecord<String, Regions> record =
+                    new ProducerRecord<String, Regions>("topic-region-out", next.key, next.value);
+            producer.send(record);
             logger.info("Key: " + next.key + " value: " + next.value);
         }
+
+        //KTable<String, Regions> KT1 = builder.table("topic-region-out", Consumed.with(AppSerdes.String(), AppSerdes.Regions()));
+        //KT1.toStream().print(Printed.<String, Regions>toSysOut().withLabel("KT1"));
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("Shutting Down streams");

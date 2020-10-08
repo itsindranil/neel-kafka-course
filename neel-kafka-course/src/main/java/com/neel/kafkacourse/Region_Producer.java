@@ -36,18 +36,22 @@ public class Region_Producer {
         //Create producer
         final KafkaProducer<String, Regions> producer = new KafkaProducer<String, Regions>(property);
         Regions regions = new Regions();
-        for (int i = 1; i <= 50; i++) {
-            int rand1 = random.nextInt(1000);
-            int rand2 = random.nextInt(1000);
+        for (int i = 1; i <= 1000000; i++) {
+            int rand1 = random.nextInt(1000000);
+            int rand2 = random.nextInt(1000000);
             String key = "R-"+Integer.toString(i);
-/*            //String  Employees.= "NewlyUpdated-"+Integer.toString(i);
-            if (i % 200 == 0) {
-                TimeUnit.SECONDS.sleep(10);
+            //String  Employees.= "NewlyUpdated-"+Integer.toString(i);
+
+            regions.setRegID("R-"+Integer.toString(i));
+            regions.setRegName("AFRICA");
+            regions.setSubregName("AFRICA-Sub-"+Integer.toString(i%5)+"-"+Integer.toString(i%10) );
+
+/*
+            if (i % 2000 == 0) {
+                TimeUnit.SECONDS.sleep(20);
             }
 */
-            regions.setRegID("R-"+Integer.toString(i));
-            regions.setRegName("Reg-"+Integer.toString(i%5));
-            regions.setSubregName("Sub-Reg-"+Integer.toString(i));
+
 
 
             //create a producer record with Keys
@@ -59,7 +63,7 @@ public class Region_Producer {
             producer.send(record, new Callback() {
                 public void onCompletion(RecordMetadata recordMetadata, Exception e) {
                     if (e == null) {
-                        logger.info("Sending message Run " + Integer.toString(finalI) + " now.  \n" +
+                        logger.info("Sending Message " + record.key()+" , "+record.value() + " now.  \n" +
                                 "Topic : " + recordMetadata.topic() + "\n" +
                                 "Partition : " + recordMetadata.partition() + "\n" +
                                 "Offset : " + recordMetadata.offset() + "\n" +

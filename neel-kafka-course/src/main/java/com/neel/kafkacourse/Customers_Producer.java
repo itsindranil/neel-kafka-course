@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Customers_Producer {
 
@@ -36,19 +37,19 @@ public class Customers_Producer {
         //Create producer
         final KafkaProducer<String, Customers> producer = new KafkaProducer<String, Customers>(property);
         Customers customers = new Customers();
-        for (int i = 1; i <= 200; i++) {
-            int rand1 = random.nextInt(1000);
-            int rand2 = random.nextInt(1000);
-            String key = "Cust-"+Integer.toString(i);
- /*           //String  Employees.= "NewlyUpdated-"+Integer.toString(i);
+        for (int i = 1; i <= 200000; i++) {
+            int rand1 = random.nextInt(200000);
+            int rand2 = random.nextInt(200000);
+            String key = "Cust-"+Integer.toString(rand1);
+            //String  Employees.= "NewlyUpdated-"+Integer.toString(i);
             if (i % 200 == 0) {
-                TimeUnit.SECONDS.sleep(10);
+                TimeUnit.SECONDS.sleep(15);
             }
 
-  */
-            customers.setCustID("Cust-"+Integer.toString(i));
-            customers.setName("Name-"+Integer.toString(i));
-            customers.setAddress("Address-"+Integer.toString(i));
+
+            customers.setCustID("Cust-"+Integer.toString(rand1));
+            customers.setName("Name-"+Integer.toString(rand1));
+            customers.setAddress("Address-"+Integer.toString(rand1));
 
 
             //create a producer record with Keys

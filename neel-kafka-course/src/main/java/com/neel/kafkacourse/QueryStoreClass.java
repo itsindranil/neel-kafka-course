@@ -1,7 +1,7 @@
 package com.neel.kafkacourse;
 
 import com.neel.kafkacourse.serde.AppSerdes;
-import com.neel.kafkacourse.types.AdInventories;
+import com.neel.kafkacourse.types.Regions;
 import org.apache.kafka.streams.*;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
@@ -27,7 +27,7 @@ public class QueryStoreClass {
 
         StreamsBuilder builder = new StreamsBuilder();
         //Creating the Stream
-        KStream<String, String> KS_AdClick = builder.stream("sample-topic", Consumed.with(AppSerdes.String(), AppSerdes.String()));
+       KStream<String, String> KS_AdClick = builder.stream("sample-topic", Consumed.with(AppSerdes.String(), AppSerdes.String()));
 
      // KT_AdInv.toStream().foreach((k, v) -> System.out.println("Key: " + k + " Value: " + v));
         Topology topology = builder.build();
@@ -42,12 +42,12 @@ public class QueryStoreClass {
         //queryServer.start();
 
         //Get the key value store
-        ReadOnlyKeyValueStore<String, AdInventories> kvStore = streams.store("store-AdInv", QueryableStoreTypes.keyValueStore());
+        ReadOnlyKeyValueStore<String, Regions> kvStore = streams.store("store-KT-region1", QueryableStoreTypes.keyValueStore());
 
         //Get all values for all keys
-        KeyValueIterator<String, AdInventories> range = kvStore.all();
+        KeyValueIterator<String, Regions> range = kvStore.all();
         while (range.hasNext()) {
-            KeyValue<String, AdInventories> next = range.next();
+            KeyValue<String, Regions> next = range.next();
             logger.info("Key: " + next.key + " value: " + next.value);
         }
 

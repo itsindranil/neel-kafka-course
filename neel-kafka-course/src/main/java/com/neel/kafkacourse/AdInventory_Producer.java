@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class AdInventory_Producer {
 
@@ -39,17 +40,17 @@ public class AdInventory_Producer {
         //Create producer
         final KafkaProducer<String, AdInventories> producer = new KafkaProducer<String, AdInventories>(property);
         AdInventories adInventories = new AdInventories();
-        for (int i = 1; i <= 100; i++) {
-            //int rand1 = random.nextInt(1000);
+        for (int i = 1; i <= 3000000; i++) {
+            int rand1 = random.nextInt(3000000);
             //int rand2 = random.nextInt(1000);
-            String key = "Ad-"+Integer.toString(i);
+            String key = "Ad-"+Integer.toString(rand1);
             //String  Employees.= "NewlyUpdated-"+Integer.toString(i);
-		/*if (i%200==0) {
+		if (i%30000==0) {
 			TimeUnit.SECONDS.sleep(5);
 		}
-		*/
-            adInventories.setInventoryID("Ad-"+Integer.toString(i));
-            adInventories.setNewsType("Type-"+Integer.toString(i%10));
+
+            adInventories.setInventoryID("Ad-"+Integer.toString(rand1));
+            adInventories.setNewsType("Type-"+Integer.toString(rand1%10));
 
 
             //create a producer record with Keys
