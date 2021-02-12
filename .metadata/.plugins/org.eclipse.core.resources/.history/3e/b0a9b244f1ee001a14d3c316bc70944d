@@ -1,0 +1,43 @@
+package com.neel.kafkacourse;
+
+import java.util.Properties;
+
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
+
+public class ProducerDemowithCallback {
+
+	public static void main(String[] args) {
+		String bootstrapserver = "neel-pc:9092";
+		
+		//Config
+		
+		Properties property = new Properties();
+		property.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapserver);
+		property.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+		property.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+		
+		//Create prodcuer
+		
+		KafkaProducer<String, String> producer = new KafkaProducer<String, String>(property);
+		
+		//create a producer record
+		
+		ProducerRecord<String, String> record = 
+				new ProducerRecord<String, String>("topic1" , "Hello from Java");	 
+		
+		//send the record
+		
+		producer.send(record);
+		
+		//flush and close producer
+		
+		producer.flush();
+		producer.close();
+		
+
+	}
+
+}

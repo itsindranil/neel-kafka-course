@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.neel.AssistantCoachAdvise&apos; to &apos;AssistantCoachService&apos;&#x0A;- Original project: &apos;App2&apos;&#x0A;- Original element: &apos;com.neel.AssistantCoachAdvise&apos;&#x0A;- Renamed element: &apos;com.neel.AssistantCoachService&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;AssistantCoachAdvise&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.neel{AssistantCoachAdvise.java[AssistantCoachAdvise" matchStrategy="1" name="AssistantCoachService" qualified="false" references="true" similarDeclarations="false" stamp="1593373811847" textual="false" version="1.0"/>
+</session>

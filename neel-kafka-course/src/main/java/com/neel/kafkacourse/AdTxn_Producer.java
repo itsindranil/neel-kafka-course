@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class AdTxn_Producer {
     public static void main(String[] args) throws InterruptedException {
@@ -20,7 +19,7 @@ public class AdTxn_Producer {
         Timestamp curr_ts = new Timestamp(curr_time);
         Random random = new Random();
 
-        String topic = "topic-adTxn";
+        String topic = "test_kt_join2";
 
 
         //Logger
@@ -36,17 +35,17 @@ public class AdTxn_Producer {
         //Create producer
         final KafkaProducer<String, AdTxn> producer = new KafkaProducer<String, AdTxn>(property);
         AdTxn adTxn = new AdTxn();
-        for (int i = 1; i <= 100000000; i++) {
+        for (int i = 1; i <= 30000; i++) {
             int rand1 = random.nextInt(1000);
             int rand2 = random.nextInt(200);
             int rand3 = random.nextInt(100);
             int rand4 = random.nextInt(50);
             Double val = random.nextDouble();
-            String key = "Txn-"+Integer.toString(i);
+            String key = "Ad-"+Integer.toString(i);
             //String  Employees.= "NewlyUpdated-"+Integer.toString(i);
-            if (i % 20000 == 0) {
-                TimeUnit.SECONDS.sleep(3);
-            }
+           // if (i % 20000 == 0) {
+           //     TimeUnit.SECONDS.sleep(3);
+           // }
 
             adTxn.setTxnID("Txn-"+Integer.toString(i));
             adTxn.setCustID("Cust-"+Integer.toString(rand2));

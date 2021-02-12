@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;ProducerDemo.java&apos; to &apos;src/main/java/com.neel.kafkacourse&apos;&#x0A;- Original project: &apos;src&apos;&#x0A;- Destination element: &apos;src/main/java/com.neel.kafkacourse&apos;&#x0A;- Original element: &apos;com.neel.kafkacourse.ProducerDemo.java&apos;" description="Copy compilation unit" destination="/main\/java&lt;com.neel.kafkacourse" element1="/main\/java&lt;com.neel.kafkacourse{ProducerDemo.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1599251944541" units="1" version="1.0"/>
+</session>
