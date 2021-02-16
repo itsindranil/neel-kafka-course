@@ -1,7 +1,7 @@
 package com.neel.kafkacourse;
 
 import com.neel.kafkacourse.serde.JsonSerializer;
-import com.neel.kafkacourse.types.AdTxn;
+import com.neel.kafkacourse.types.AdOut;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
@@ -12,18 +12,18 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 
-public class AdTxn_Producer {
+public class AdOut_Producer {
     public static void main(String[] args) throws InterruptedException {
         final Date curr_date = new Date();
         long curr_time = curr_date.getTime();
         Timestamp curr_ts = new Timestamp(curr_time);
         Random random = new Random();
 
-        String topic = "test_kt_join43";
+        String topic = "test_kt_join42";
 
 
         //Logger
-        final Logger logger = LoggerFactory.getLogger(AdTxn_Producer.class);
+        final Logger logger = LoggerFactory.getLogger(AdOut_Producer.class);
 
         //Config
 
@@ -33,9 +33,9 @@ public class AdTxn_Producer {
         property.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
 
         //Create producer
-        final KafkaProducer<String, AdTxn> producer = new KafkaProducer<String, AdTxn>(property);
-        AdTxn adTxn = new AdTxn();
-        for (int i = 1; i <= 30; i++) {
+        final KafkaProducer<String, AdOut> producer = new KafkaProducer<String, AdOut>(property);
+        AdOut adOut = new AdOut();
+        for (int i = 1; i <= 20; i++) {
             int rand1 = random.nextInt(1000);
             int rand2 = random.nextInt(200);
             int rand3 = random.nextInt(100);
@@ -43,20 +43,19 @@ public class AdTxn_Producer {
             Double val = random.nextDouble();
             String key = "Neel-"+Integer.toString(i);
             //String  Employees.= "NewlyUpdated-"+Integer.toString(i);
-           // if (i % 20000 == 0) {
-           //     TimeUnit.SECONDS.sleep(3);
-           // }
+            // if (i % 20000 == 0) {
+            //     TimeUnit.SECONDS.sleep(3);
+            // }
 
-            adTxn.setTxnID("NeelTxn-"+Integer.toString(i));
-            adTxn.setCustID("Cust-"+Integer.toString(rand2));
-            adTxn.setInventoryID("AdInv-"+Integer.toString(rand3));
-            adTxn.setRegID("NewReg-"+Integer.toString(rand4));
-            adTxn.setTxnVal(val);
+
+            adOut.setInventoryID("AdOut-"+Integer.toString(rand3));
+            adOut.setNewsType("AdOutType-"+Integer.toString(rand4));
+
 
 
             //create a producer record with Keys
-            ProducerRecord<String, AdTxn> record =
-                    new ProducerRecord<String, AdTxn>(topic, key, adTxn);
+            ProducerRecord<String, AdOut> record =
+                    new ProducerRecord<String, AdOut>(topic, key, adOut);
 
             //send the record
             int finalI = i;

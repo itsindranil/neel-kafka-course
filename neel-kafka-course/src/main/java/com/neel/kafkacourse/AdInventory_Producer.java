@@ -23,7 +23,7 @@ public class AdInventory_Producer {
         Timestamp curr_ts = new Timestamp(curr_time);
         Random random = new Random();
 
-        String topic = "test_kt_join1";
+        String topic = "test_kt_join41";
 
 
         //Logger
@@ -42,14 +42,14 @@ public class AdInventory_Producer {
         for (int i = 1; i <= 10; i++) {
             int rand1 = random.nextInt(20);
             //int rand2 = random.nextInt(1000);
-            String key = "Ad-"+Integer.toString(i);
+            String key = "Neel-"+Integer.toString(i);
             //String  Employees.= "NewlyUpdated-"+Integer.toString(i);
 		//if (i%30000==0) {
 		//	TimeUnit.SECONDS.sleep(5);
 		//}
 
-            adInventories.setInventoryID("Ad-"+Integer.toString(rand1));
-            adInventories.setNewsType("Type-"+Integer.toString(rand1%20));
+            adInventories.setInventoryID("AdInv-"+Integer.toString(i));
+            adInventories.setNewsType("AdInvType-"+Integer.toString(rand1%2));
 
 
             //create a producer record with Keys

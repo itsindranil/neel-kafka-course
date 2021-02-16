@@ -7,7 +7,7 @@ public class AppConfigs {
     final static String topicName = "topic6";
     final static int inputRows = 100;
     final static String stateStoreLocation = "/tmp/state-store";
-    final static String stateStoreName = "KT0-neel-store";
+    final static String stateStoreName = "store-test_kt_join45";
     final static String regExSymbol = "(?i)101|102|103";
     final static String queryServerHost = "localhost";
     final static int queryServerPort = 7010;
